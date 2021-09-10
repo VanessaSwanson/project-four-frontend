@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#c70039",
+    "titleBar.activeBackground": "#c70039",
+    "titleBar.inactiveBackground": "#c70039",
+    "statusBar.foreground": "#000",
+    "titleBar.inactiveForeground": "#000",
+    "titleBar.activeForeground": "#000"
+  },
+  "window.title": "FRONTEND Kollektiv"
+}
