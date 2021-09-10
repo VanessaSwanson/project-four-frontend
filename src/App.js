@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
 import ExploreIndex from './components/posts/ExploreIndex'
 import Nav from './components/common/Nav'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 
 function App() {
   const [posts, setPosts] = React.useState(null)
@@ -43,13 +45,13 @@ function App() {
             />
           </Route>
 
-          {/* <Route path="/register">
+          <Route path="/auth/register/">
             <Register />
           </Route>
-          <Route path="/login">
+          <Route path="/auth/login/">
             <Login />
           </Route>
-          <Route path="/profile">
+          {/* <Route path="/profile">
             <Profile />
           </Route> */}
 

@@ -1,13 +1,13 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-// import { removeToken, isAuthenticated } from '../../lib/auth'
+import { Link, useLocation, useHistory } from 'react-router-dom'
+import { removeToken, isAuthenticated } from '../../lib/auth'
 
 function Nav( {  posts }) {
   const isLoading = !posts 
-  // const history = useHistory()
+  const history = useHistory()
   const [isHome, setIsHome] = React.useState(false)
   const { pathname } = useLocation()
-  // const isAuth = isAuthenticated()
+  const isAuth = isAuthenticated()
 
   React.useEffect(() => {
     // console.log(pathname)
@@ -20,10 +20,10 @@ function Nav( {  posts }) {
 
   // console.log(isHome)
 
-  // const handleLogout = () => {
-  //   removeToken()
-  //   history.push('/')
-  // }
+  const handleLogout = () => {
+    removeToken()
+    history.push('/')
+  }
 
   return (
     
@@ -38,9 +38,9 @@ function Nav( {  posts }) {
         <Link to="/posts" className="navbar-element">
           Explore
         </Link>
-        {/* {isAuth &&
+        {isAuth &&
         <>
-          <Link to="/profile" className="navbar-element">
+          <Link to="/auth/profile/" className="navbar-element">
             Your Profile
           </Link>
           <a className="navbar-element" onClick={handleLogout}>Log Out</a>
@@ -48,15 +48,15 @@ function Nav( {  posts }) {
         }
         {!isAuth &&
         <>
-          <Link to="/register" className="navbar-element">
+          <Link to="/auth/register/" className="navbar-element">
             Register
           </Link>
-          <Link to="/login" className="navbar-element">
+          <Link to="/auth/login/" className="navbar-element">
             Login
           </Link>
 
         </>
-        } */}
+        }
       </div>
     </nav>
   )
