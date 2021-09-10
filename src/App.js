@@ -6,6 +6,9 @@ import ExploreIndex from './components/posts/ExploreIndex'
 import Nav from './components/common/Nav'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import UserShow from './components/users/UserShow'
+import UserFollow from './components/users/UserFollow'
+import CreatePost from './components/posts/CreatePost'
 
 function App() {
   const [posts, setPosts] = React.useState(null)
@@ -44,16 +47,29 @@ function App() {
               isError = {isError}
             />
           </Route>
-
-          <Route path="/auth/register/">
+          <Route exact path="/auth/register/">
             <Register />
           </Route>
-          <Route path="/auth/login/">
+          <Route exact path="/auth/login/">
             <Login />
           </Route>
-          {/* <Route path="/profile">
-            <Profile />
+          <Route exact path="/posts/create/">
+            <CreatePost />
+          </Route>
+
+          <Route exact path="/auth/:userId/">
+            <UserShow />
+          </Route>
+
+          {/* <Route path="/auth/profile/">
+            
           </Route> */}
+
+          
+          <Route exact path="/auth/:userId/follow/">
+            <UserFollow />
+          </Route>
+          
 
         </Switch>
       </>

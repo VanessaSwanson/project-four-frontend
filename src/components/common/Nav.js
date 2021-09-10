@@ -41,7 +41,10 @@ function Nav( {  posts }) {
         {isAuth &&
         <>
           <Link to="/auth/profile/" className="navbar-element">
-            Your Profile
+            Profile
+          </Link>
+          <Link to="/posts/create/" className="navbar-element">
+            Create
           </Link>
           <a className="navbar-element" onClick={handleLogout}>Log Out</a>
         </>

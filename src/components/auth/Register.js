@@ -24,7 +24,7 @@ function Register() {
     try {
       const response = await registerUser(formData)
       console.log(response)
-      history.push('/auth/login')
+      history.push('/auth/login/')
     } catch (err) {
       console.log(err)
     }
