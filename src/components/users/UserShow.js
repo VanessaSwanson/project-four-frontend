@@ -55,14 +55,21 @@ function UserShow() {
             <div className="user-show-header-right">
               <div className="user-controls">
                 <h3>{user.username}</h3>
-                <button className="follow-button">
-                  <a href={`/auth/${user.id}/follow/`}>{isFollowing ? 'Unfollow' : 'Follow'}</a>
-                </button>
+                {
+                  currentUser?.id === user.id ?
+                    <button className="edit-profile-button">
+                      <a href={`/auth/${user.id}/edit/`}>Edit Profile</a>
+                    </button>
+                    :
+                    <button className="follow-button">
+                      <a href={`/auth/${user.id}/follow/`}>{isFollowing ? 'Unfollow' : 'Follow'}</a>
+                    </button>
+                }
               </div>
               <div className="user-nums">
-                <p>{user.postsMade.length} posts</p>
-                <p>{user.followedBy.length} followers</p>
-                <p>{user.following.length} following</p>
+                <p className="nums">{user.postsMade.length} posts</p>
+                <p className="nums">{user.followedBy.length} followers</p>
+                <p className="nums">{user.following.length} following</p>
               </div>
               <p>{user.fullName}</p>
               <p>{user.bio}</p>
@@ -82,44 +89,6 @@ function UserShow() {
         </div>
       }
     </section>
-              
-  /* </div>
-          </div> */
-
-  /* <hr></hr>
-          <div className="lower-artist-show">
-            <div className="example-works">
-              <h2>Example works:</h2>
-              <ArtworkCard 
-                artist = {artist}
-              />
-            </div>
-            <hr></hr>
-            <h2>You might also be interested in... </h2>
-            <div className="similar-artists-container">
-              {classificationsMatchCheck(artists, artist.classifications) ?
-                <>
-                  {similarArtists.map(artist => (
-                    <>
-                      <Link to={`/women-artists/${artist._id}`}>
-                        <div className="similar-artist">
-                          <p>{artist.name}</p>
-                          <figure>
-                            <img className="similar-artists-image" src={artist.bioImage} alt={artist.name}></img>
-                          </figure>
-                        </div>
-                      </Link>
-                    </>
-                  ))}
-                  
-                </>
-                :
-                ''
-              }
-              
-            </div>
-          </div>
-        </div> */
   )
 }
 

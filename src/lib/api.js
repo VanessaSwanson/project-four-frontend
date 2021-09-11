@@ -38,3 +38,7 @@ export function followUser(id) {
 export function getProfile() {
   return axios.get('/api/auth/profile', getHeaders())
 }
+
+export function editProfile(id, formData) {
+  return axios.put(`/api/auth/${id}/edit/`, formData, getHeaders())
+}

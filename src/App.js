@@ -9,6 +9,7 @@ import Register from './components/auth/Register'
 import UserShow from './components/users/UserShow'
 import UserFollow from './components/users/UserFollow'
 import CreatePost from './components/posts/CreatePost'
+import EditProfile from './components/auth/EditProfile'
 
 function App() {
   const [posts, setPosts] = React.useState(null)
@@ -53,17 +54,16 @@ function App() {
           <Route exact path="/auth/login/">
             <Login />
           </Route>
+
           <Route exact path="/posts/create/">
             <CreatePost />
           </Route>
-
+          <Route exact path="/auth/:userId/edit/">
+            <EditProfile />
+          </Route>
           <Route exact path="/auth/:userId/">
             <UserShow />
           </Route>
-
-          {/* <Route path="/auth/profile/">
-            
-          </Route> */}
 
           
           <Route exact path="/auth/:userId/follow/">

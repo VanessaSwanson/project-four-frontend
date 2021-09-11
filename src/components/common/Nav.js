@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
+import { getProfile } from '../../lib/api'
 import { removeToken, isAuthenticated } from '../../lib/auth'
 
 function Nav( {  posts }) {
   const isLoading = !posts 
   const history = useHistory()
+  const [currentUser, setCurrentUser] = React.useState(null)
   const [isHome, setIsHome] = React.useState(false)
   const { pathname } = useLocation()
   const isAuth = isAuthenticated()
 
   React.useEffect(() => {
-    // console.log(pathname)
     if (pathname === '/' || pathname === '') {
       setIsHome(true)
     } else {
@@ -18,7 +19,17 @@ function Nav( {  posts }) {
     }
   },[pathname])
 
-  // console.log(isHome)
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getProfile()
+        return setCurrentUser(res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
+  }, [])
 
   const handleLogout = () => {
     removeToken()
@@ -40,9 +51,7 @@ function Nav( {  posts }) {
         </Link>
         {isAuth &&
         <>
-          <Link to="/auth/profile/" className="navbar-element">
-            Profile
-          </Link>
+          <a className="navbar-element" href={`/auth/${currentUser?.id}/`}>Profile</a>
           <Link to="/posts/create/" className="navbar-element">
             Create
           </Link>
