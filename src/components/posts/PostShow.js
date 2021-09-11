@@ -53,9 +53,9 @@ function PostShow() {
     const bandB = b.createdAt
     let comparison = 0
     if (bandA > bandB) {
-      comparison = 1
-    } else if (bandA < bandB) {
       comparison = -1
+    } else if (bandA < bandB) {
+      comparison = 1
     }
     return comparison
   }

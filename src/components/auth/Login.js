@@ -19,7 +19,7 @@ function Login() {
       console.log(response)
       setToken(response.data.token)
       setLoggedInUserUsername(response.data.message.split(' ').splice(2).toString())
-      history.push('/posts')
+      history.push('/')
     } catch (err) {
       console.log(err)
     }

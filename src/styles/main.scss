@@ -19,6 +19,63 @@
   }
 }
 
+// HOME PAGE
+.home-page {
+  display: flex;
+  width: 70%;
+  margin: 30px auto;
+  .home-page-left{
+    width: 70%;
+    .post-card{
+      margin: 15px;
+      padding: 5px;
+      border: 1px solid black;
+      .post-header{
+        margin-bottom: 5px;
+        .post-header-link{
+          display: flex;
+          img {
+            max-width: 50px;
+            max-width: 50px;
+          }
+        }
+      }
+      img{
+        max-width: 100%;
+      }
+    }
+    
+  }
+  .home-page-right{
+    width: 30%;
+    margin-left: 20px;
+    .suggestion-posts-container{
+      .suggestion-card{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .suggestion-card-left{
+          img{
+            max-width: 50px;
+            max-height: 50px;
+          }
+        }
+        .suggestion-card-right{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          button{
+            margin-left: 15px;
+          }
+          p{
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
 // EXPLORE PAGE
 .explore-posts-container {
   display: flex;

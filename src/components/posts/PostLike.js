@@ -38,7 +38,7 @@ function PostLike() {
       await likePost(postId)
       const res = await getProfile()
       setCurrentUser(res.data)
-      history.push(`/posts/${postId}/`)
+      history.push('/')
     } catch (err) {
       console.log(err)
     }

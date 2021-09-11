@@ -1,8 +1,9 @@
 import React from 'react'
 import { getAllPosts } from './lib/api'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import ExploreIndex from './components/posts/ExploreIndex'
+import Home from './components/common/Home'
 import PostShow from './components/posts/PostShow'
 import PostLike from './components/posts/PostLike'
 import PostComment from './components/posts/PostComment'
@@ -16,6 +17,7 @@ import EditProfile from './components/auth/EditProfile'
 
 function App() {
   const [posts, setPosts] = React.useState(null)
+  // const [user, setUser] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
 
   React.useEffect(() => {
@@ -32,6 +34,18 @@ function App() {
     // setTimeout(getData, 3000)
   },[])
 
+  // React.useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const response = await getProfile()
+  //       setUser(response.data)
+  //     } catch (err) {
+  //       setIsError(true)
+  //     }    
+  //   }
+  //   getData()
+  // },[])
+
   return (
     <BrowserRouter>
       {posts &&
@@ -42,9 +56,7 @@ function App() {
         <Switch>
 
           <Route exact path="/">
-            <h1>Welcome to Kollektiv</h1>
-            <p>This will be the home page</p>
-            <button><Link to="/posts">Enter</Link></button>
+            <Home />
           </Route>
 
           <Route exact path="/posts">

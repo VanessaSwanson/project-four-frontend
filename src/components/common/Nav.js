@@ -31,9 +31,10 @@ function Nav( {  posts }) {
     getData()
   }, [])
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     removeToken()
     history.push('/')
+    location.reload()
   }
 
   return (
