@@ -49,8 +49,8 @@ function UserFollow() {
     return follower.id === currentUser?.id
   })
 
-  console.log(currentUser)
-  console.log(isFollowing)
+  // console.log(currentUser)
+  // console.log(isFollowing)
 
   return (
     <section className="follow-section">

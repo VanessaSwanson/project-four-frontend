@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { getSingleUser, getProfile } from '../../lib/api'
 
 function UserShow() {
@@ -37,8 +37,8 @@ function UserShow() {
     return follower.id === currentUser?.id
   })
 
-  console.log(isFollowing)
-  console.log(currentUser)
+  // console.log(isFollowing)
+  // console.log(currentUser)
 
   return (
     <section className="user-show-section">
@@ -79,11 +79,11 @@ function UserShow() {
           <hr></hr>
           <div className="user-show-posts-container">
             {user.postsMade.map(post => (
-              <div className="user-show-post" key={post.id}>
-                <figure>
-                  <img src={post.image} alt={post.title}/>
-                </figure>
-              </div>
+              <Link to={`/posts/${post.id}`} key={post.id} className="user-show-post-link">
+                <div className="user-show-post">
+                  <img src={post.image} alt={post.title}></img>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

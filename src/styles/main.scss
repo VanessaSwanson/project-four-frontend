@@ -59,6 +59,87 @@
   }
 }
 
+// POST SHOW
+.post-show-container{
+  width: 70%;
+  margin: 40px auto;
+}
+.owner-profile-image{
+  max-width: 50px;
+  max-height: 50px;
+}
+.post-show-main{
+  display: flex;
+  width: 100%;
+  .post-show-left{
+    width: 65%;
+    img{
+      max-width: 100%;
+    }
+  }
+  .post-show-right{
+    .post-show-right-header{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      button {
+        margin-left: 10px;
+      }
+    }
+    .post-show-right-main{
+      .post-show-caption{
+        display: flex;
+      }
+    }
+  }
+  .post-show-comments{
+    .post-show-comment-container{
+      display: flex;
+    }
+  }
+  .post-show-buttons {
+    display: flex;
+    button {
+      margin: 0 20px;
+    }
+  }
+}
+.post-show-lower{
+  .more-posts-container{
+    display: flex;
+    flex-wrap: wrap;
+    .more-posts-card{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      margin: 10px;
+      width: 30%;
+      img{
+        max-width: 100%;
+        max-height: 250px;
+      }
+    }
+  }
+}
+
+// POST LIKE and USER FOLLOW
+
+.follow-card, .like-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  margin: 60px auto;
+  border: 1px solid black;
+  padding: 50px 0;
+  button {
+    margin: 10px;
+  }
+}
+
+
 // USER SHOW PAGE
 .user-show-section {
   display: flex;
@@ -87,28 +168,22 @@
 .user-show-posts-container {
   display: flex;
   flex-wrap: wrap;
-  .user-show-post {
+  .user-show-post-link {
     width: 30%;
-    height: 300px;
-    margin: 10px;
-    border: 1px solid black;
-    img {
-      max-width: 100%;
+    .user-show-post {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 300px;
+      margin: 10px;
+      border: 1px solid black;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
+  
 }
 
-// UNFOLLOW PAGE
-.follow-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 70%;
-  margin: 60px auto;
-  border: 1px solid black;
-  padding: 50px 0;
-  button {
-    margin: 10px;
-  }
-}

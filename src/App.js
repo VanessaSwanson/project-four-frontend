@@ -3,6 +3,9 @@ import { getAllPosts } from './lib/api'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
 import ExploreIndex from './components/posts/ExploreIndex'
+import PostShow from './components/posts/PostShow'
+import PostLike from './components/posts/PostLike'
+import PostComment from './components/posts/PostComment'
 import Nav from './components/common/Nav'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
@@ -37,17 +40,32 @@ function App() {
           posts = {posts}
         />
         <Switch>
+
           <Route exact path="/">
             <h1>Welcome to Kollektiv</h1>
             <p>This will be the home page</p>
             <button><Link to="/posts">Enter</Link></button>
           </Route>
+
           <Route exact path="/posts">
             <ExploreIndex 
               posts = {posts}
               isError = {isError}
             />
           </Route>
+          <Route exact path="/posts/create/">
+            <CreatePost />
+          </Route>
+          <Route exact path="/posts/:postId">
+            <PostShow />
+          </Route>
+          <Route exact path="/posts/:postId/like/">
+            <PostLike />
+          </Route>
+          <Route exact path="/posts/:postId/comment/">
+            <PostComment />
+          </Route>
+
           <Route exact path="/auth/register/">
             <Register />
           </Route>
@@ -55,17 +73,12 @@ function App() {
             <Login />
           </Route>
 
-          <Route exact path="/posts/create/">
-            <CreatePost />
-          </Route>
           <Route exact path="/auth/:userId/edit/">
             <EditProfile />
           </Route>
           <Route exact path="/auth/:userId/">
             <UserShow />
-          </Route>
-
-          
+          </Route>        
           <Route exact path="/auth/:userId/follow/">
             <UserFollow />
           </Route>

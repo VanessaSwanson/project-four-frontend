@@ -13,8 +13,19 @@ export function getAllPosts() {
   return axios.get('/api/posts')
 }
 
+export function getSinglePost(id){
+  return axios.get(`/api/posts/${id}`)
+}
 export function createPost(formData) {
   return axios.post('/api/posts/create/', formData, getHeaders())
+}
+
+export function likePost(id) {
+  return axios.post(`/api/posts/${id}/like/`, null, getHeaders())
+}
+
+export function commentPost(id, formData) {
+  return axios.post(`/api/posts/${id}/comment/`, formData, getHeaders())
 }
 
 

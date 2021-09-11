@@ -17,9 +17,11 @@ function PostCard({ id, title, caption, createdAt, likedBy, owner, image }) {
           <h4>Caption: {caption}</h4>
           <p>Post id: {id}</p>
           <p>Created at: {createdAt}</p>
-          <figure>
-            <img src={image} alt={id}/>
-          </figure>
+          <Link to={`/posts/${id}`}>
+            <figure>
+              <img src={image} alt={id}/>
+            </figure>
+          </Link>
           {console.log('owner: ', owner)}
           {console.log('liked by: ', likedBy)}
         </div>
