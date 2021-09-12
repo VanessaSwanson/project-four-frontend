@@ -38,6 +38,10 @@ export function loginUser(formData) {
   return axios.post('/api/auth/login/', formData)
 }
 
+export function getAllUsers() {
+  return axios.post('/api/auth')
+}
+
 export function getSingleUser(id) {
   return axios.get(`/api/auth/${id}`)
 }

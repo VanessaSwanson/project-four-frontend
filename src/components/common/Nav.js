@@ -42,15 +42,16 @@ function Nav( {  posts }) {
     <nav className={`navbar ${isHome ? 'is-active' : ''}`}>
 
       {isLoading && <p>...loading</p>}
-      
-      <div className="navbar-brand">
-        <Link to="/" className="navbar-element">
+      <Link to="/posts" className="navbar-element">
+          Search
+      </Link>
+      <Link to="/" className="navbar-element">
           Home
-        </Link>
-        <Link to="/posts" className="navbar-element">
+      </Link>
+      <Link to="/posts" className="navbar-element">
           Explore
-        </Link>
-        {isAuth &&
+      </Link>
+      {isAuth &&
         <>
           <a className="navbar-element" href={`/auth/${currentUser?.id}/`}>Profile</a>
           <Link to="/posts/create/" className="navbar-element">
@@ -58,8 +59,8 @@ function Nav( {  posts }) {
           </Link>
           <a className="navbar-element" onClick={handleLogout}>Log Out</a>
         </>
-        }
-        {!isAuth &&
+      }
+      {!isAuth &&
         <>
           <Link to="/auth/register/" className="navbar-element">
             Register
@@ -69,8 +70,8 @@ function Nav( {  posts }) {
           </Link>
 
         </>
-        }
-      </div>
+      }
+
     </nav>
   )
 

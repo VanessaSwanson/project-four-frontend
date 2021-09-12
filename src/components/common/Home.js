@@ -51,8 +51,7 @@ function EventIndex() {
   const arrayUniqueByKey = [...new Map(suggestions.map(item =>
     [item[key], item])).values()]
 
-  console.log(arrayUniqueByKey)
-
+  // console.log(arrayUniqueByKey)
   // console.log('This is the user', user)
   // console.log('This is the people the user follows', user?.following)
   // console.log('This is the followingAccounts array', followingAccounts)
@@ -72,16 +71,6 @@ function EventIndex() {
     }
     return comparison
   }
-
-  // const handleSearch = (e) => {
-  //   setSearchValue(e.target.value)
-  // }
-
-  // const filteredEvents = () => {
-  //   return events.sort(compareEvents).filter(event => {
-  //     return (event.name.toLowerCase().includes(searchValue.toLocaleLowerCase())) 
-  //   })
-  // }
 
   return (
     <section className="home-page-section">
@@ -120,6 +109,7 @@ function EventIndex() {
                         </button>
                       </div>
                       <p>{post.likedBy.length} likes</p>
+                      <p><strong>{post.owner.username}</strong> {post.caption}</p>
                       <p>{post.createdAt}</p>
                       <div className="home-comment-container">
                         {post.comments.map(comment=>(

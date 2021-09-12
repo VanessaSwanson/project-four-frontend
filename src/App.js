@@ -17,7 +17,6 @@ import EditProfile from './components/auth/EditProfile'
 
 function App() {
   const [posts, setPosts] = React.useState(null)
-  // const [user, setUser] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
 
   React.useEffect(() => {
@@ -34,17 +33,6 @@ function App() {
     // setTimeout(getData, 3000)
   },[])
 
-  // React.useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await getProfile()
-  //       setUser(response.data)
-  //     } catch (err) {
-  //       setIsError(true)
-  //     }    
-  //   }
-  //   getData()
-  // },[])
 
   return (
     <BrowserRouter>
@@ -56,7 +44,8 @@ function App() {
         <Switch>
 
           <Route exact path="/">
-            <Home />
+            <Home 
+            />
           </Route>
 
           <Route exact path="/posts">
