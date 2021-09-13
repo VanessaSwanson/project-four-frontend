@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import { registerUser } from '../../lib/api'
+import ImageUpload from '../ImageUpload'
 
 function Register() {
   const history = useHistory()
@@ -19,6 +20,10 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const handleUploadedImage = (imageUrl, fieldName) => {
+    setFormData({ ...formData, [fieldName]: imageUrl })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -34,7 +39,7 @@ function Register() {
     <>
       <section className="register">
         <h2>Sign up to see photos from your friends</h2>
-        <div className="container">
+        <div className="form-container">
           <form
             className="form"
             onSubmit={handleSubmit}
@@ -73,15 +78,13 @@ function Register() {
               </div>
             </div>
             <div className="field">
-              <label className="label">Profile Image</label>
-              <div className="control">
-                <input
-                  className="input"
-                  placeholder="Link to your profile image here"
-                  name="profileImage"
-                  onChange={handleChange}
-                />
-              </div>
+              <ImageUpload 
+                value={formData.profileImage}
+                onChange={handleUploadedImage}
+                name='profileImage'
+                uploadPreset = {process.env.REACT_APP_CLOUDINARY_PROFILE_UPLOAD_PRESET}
+                labelText='Profile Image'
+              />
             </div>
             <div className="field">
               <label className="label">Bio</label>

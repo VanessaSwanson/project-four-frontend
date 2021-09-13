@@ -1,11 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import { createPost } from '../../lib/api'
+import ImageUpload from '../ImageUpload'
 
 function CreatePost () {
-
   const history = useHistory()
-
   const [formData, setFormData] = React.useState(
     {
       title: '',
@@ -16,6 +15,10 @@ function CreatePost () {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleUploadedImage = (imageUrl, fieldName) => {
+    setFormData({ ...formData, [fieldName]: imageUrl })
   }
 
   const handleSubmit = async (e) => {
@@ -31,7 +34,7 @@ function CreatePost () {
   }
 
   return (
-    <div className="comments-form-container">
+    <div className="form-container">
       <h2>Create a post </h2>
       <form
         className="form"
@@ -49,7 +52,7 @@ function CreatePost () {
           </div>
         </div>
         <div className="field">
-          <label className="label">Caption</label>
+          <label className="label caption">Caption</label>
           <div className="control">
             <textarea
               className="input"
@@ -60,19 +63,17 @@ function CreatePost () {
           </div>
         </div>
         <div className="field">
-          <label className="label">Image</label>
-          <div className="control">
-            <input
-              className="input"
-              placeholder="Image link"
-              name="image"
-              onChange={handleChange}
-            />
-          </div>
+          <ImageUpload 
+            value={formData.image}
+            onChange={handleUploadedImage}
+            name='image'
+            uploadPreset = {process.env.REACT_APP_CLOUDINARY_POSTS_UPLOAD_PRESET}
+            labelText='Image'
+          />
         </div>
 
         <div className="field">
-          <button type="submit">Create posts</button>
+          <button type="submit">Submit</button>
         </div>
 
       </form>

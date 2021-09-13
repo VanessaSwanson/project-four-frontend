@@ -45,6 +45,7 @@ function App() {
 
           <Route exact path="/">
             <Home 
+              posts = {posts}
             />
           </Route>
 

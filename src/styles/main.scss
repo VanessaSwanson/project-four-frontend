@@ -1,29 +1,154 @@
+@import'bootstrap/dist/css/bootstrap.min.css';
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap');
+
+// Body
+#root{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+body{
+  background-color: #fafafa;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 // NAV
 .navbar {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 70px;
-  background-color: lightcoral;
-  background-position: bottom 90px right 0px;
+  background-color: white;
+  .navbar-contents{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .navbar-left{
+      display: flex;
+      width: 50%;
+      .logo{
+        font-size: 25px;
+        #red{
+          color: #ca322f;
+        }
+        #yellow{
+          color: #f6b90f;
+        }
+        #blue{
+          color: #2065ad;
+        }
+      }
+      .search{
+        height: 25px;
+        margin: 0;
+      }
+    }
+    .btn-primary{
+      background: none;
+      background-color: none;
+      border: none;
+    }
+    .btn-primary:focus{
+      box-shadow: none;
+    }
+    .navbar-right{
+      display: flex;
+      align-items: center;
+      .home, .explore, .create{
+        height: 25px;
+        margin: 0;
+      }
+      .profile {
+        height: 30px;
+        margin: 0;
+        border-radius: 50%;
+      }
+    }
+  }
+  
   .navbar-element {
-    margin: 0 50px 0 0;
+    margin: 0 20px 0 0;
     text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
     color: black;
     cursor: pointer;
   }
-  .navbar-element:hover {
-    text-decoration: underline;
+
+}
+
+// FORMS
+// Image Uploader component
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 60px auto;
+  .form{
+    width: 80%;
+  }
+  textarea{
+    height: 100px;
+  }
+  .field{
+    margin: 15px;
+    input, .input{
+      width: 100%;
+    }
+  }
+
+  .image-upload-container{
+    display: flex;
+    flex-direction: column;
+    .image-preview{
+      img{
+        max-width:50%;
+      }
+    }
+    .file-label{
+      background-color: lightgray;
+      border: 1px solid gray;
+      border-radius: 2px;
+      height: 30px;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+    }
+    .file-input{
+      display: none;
+    }
   }
 }
+
+
+// REGISTER
+.register{
+  width: 50%;
+  margin: 60px auto;
+  .field{
+    margin: 15px;
+    input, .input{
+      width: 100%;
+    }
+  }
+}
+
 
 // HOME PAGE
 .home-page {
   display: flex;
   width: 70%;
   margin: 30px auto;
+  .mini-profile-image{
+    border-radius: 50%;
+  }
   .home-page-left{
     width: 70%;
     .post-card{

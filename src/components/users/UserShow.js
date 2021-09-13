@@ -78,13 +78,20 @@ function UserShow() {
           </div>
           <hr></hr>
           <div className="user-show-posts-container">
-            {user.postsMade.map(post => (
-              <Link to={`/posts/${post.id}`} key={post.id} className="user-show-post-link">
-                <div className="user-show-post">
-                  <img src={post.image} alt={post.title}></img>
+            {
+              (currentUser?.id === user.id && user.postsMade.length === 0) ?
+                <div className="unpopulated-profile-page">
+                  <h3>Create your first post!</h3>
+                  <button><a href={'/posts/create/'}>Post</a></button>
                 </div>
-              </Link>
-            ))}
+                :
+                user.postsMade.map(post => (
+                  <Link to={`/posts/${post.id}`} key={post.id} className="user-show-post-link">
+                    <div className="user-show-post">
+                      <img src={post.image} alt={post.title}></img>
+                    </div>
+                  </Link>
+                ))}
           </div>
         </div>
       }
