@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { getProfile } from '../../lib/api'
 import { removeToken, isAuthenticated } from '../../lib/auth'
 import { Dropdown, ButtonGroup } from 'react-bootstrap'
@@ -12,17 +12,7 @@ function Nav( {  posts }) {
   const isLoading = !posts 
   const history = useHistory()
   const [currentUser, setCurrentUser] = React.useState(null)
-  const [isHome, setIsHome] = React.useState(false)
-  const { pathname } = useLocation()
   const isAuth = isAuthenticated()
-
-  React.useEffect(() => {
-    if (pathname === '/' || pathname === '') {
-      setIsHome(true)
-    } else {
-      setIsHome(false)
-    }
-  },[pathname])
 
   React.useEffect(() => {
     const getData = async () => {
@@ -48,7 +38,7 @@ function Nav( {  posts }) {
 
   return (
     
-    <nav className={`navbar ${isHome ? 'is-active' : ''}`}>
+    <nav className="navbar">
       <div className="navbar-contents">
         {isLoading && <p>...loading</p>}
         <div className="navbar-left">

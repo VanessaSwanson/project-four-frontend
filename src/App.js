@@ -15,6 +15,7 @@ import UserFollow from './components/users/UserFollow'
 import CreatePost from './components/posts/CreatePost'
 import EditProfile from './components/auth/EditProfile'
 
+
 function App() {
   const [posts, setPosts] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
@@ -42,7 +43,7 @@ function App() {
           posts = {posts}
         />
         <Switch>
-
+        
           <Route exact path="/">
             <Home 
               posts = {posts}
@@ -84,8 +85,6 @@ function App() {
           <Route exact path="/auth/:userId/follow/">
             <UserFollow />
           </Route>
-          
-
         </Switch>
       </>
       }

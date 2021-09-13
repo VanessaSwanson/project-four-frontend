@@ -6,6 +6,7 @@ function PostComment () {
   const { postId } = useParams()
   const history = useHistory()
 
+
   const [formData, setFormData] = React.useState(
     {
       text: '',
@@ -20,7 +21,8 @@ function PostComment () {
     e.preventDefault()
     try {
       await commentPost(postId, formData)
-      history.push(`/posts/${postId}/`)
+      // history.push(`/posts/${postId}/`)
+      history.push('/')
     } catch (err) {
       console.log(err)
     }

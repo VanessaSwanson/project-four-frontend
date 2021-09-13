@@ -2,7 +2,12 @@ import React from 'react'
 import { getProfile } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
 
-function EventIndex() {
+import matisse from './resources/matisse.png'
+import unlike from './resources/unlike.png'
+import like from './resources/like.png'
+import comment from './resources/comment.png'
+
+function Home() {
   const [user, setUser] = React.useState(null)
 
   React.useEffect(() => {
@@ -74,15 +79,26 @@ function EventIndex() {
         
           <div className="home-page">
             {followingPosts.length === 0 ? 
-              <div className="unpopulated-home-page">        
-                <h1>You are not following anybody yet - go to the explore page to find some cool accounts and populate your home feed.</h1>
-                <button><a href={'/posts/'}>Explore Kollektiv</a></button>
+              <div className="unpopulated-home-page">  
+                <div className="unpopulated-home-page-top">
+                  <h4>You aren&#39;t following anybody yet. 
+                    <br></br> 
+                    <br></br>
+                    Go to the explore page to find some cool accounts and populate your home feed.</h4>
+                  <button><a href={'/posts/'}>Explore Kollektiv</a></button>
+                </div>    
+                <div className="unpopulated-home-page-bottom">
+                  <figure>
+                    <img src={matisse} alt="Henri Matisse, The Sheaf, 1953"/>
+                  </figure>
+                </div>    
               </div>
               :
               <>
                 <div className="home-page-left">
                   <div className="home-page-posts-container">
                     {followingPosts.sort(sortPosts).map(post => (
+                      // POST CARD
                       <div className="post-card" key={post.id}>
                         <div className="post-header">
                           <a className="post-header-link" href={`/auth/${post.owner?.id}`}>
@@ -98,21 +114,28 @@ function EventIndex() {
                             :
                             <button className="like-button">
                               <a href={`/posts/${post.id}/like/`}>
-                                {post.likedBy.some(fan => (fan.id === user.id)) ? 'Unlike' 
+                                {post.likedBy.some(fan => (fan.id === user.id)) ? 
+                                  <img src={unlike} alt="Unlike"/>
                                   : 
-                                  'Like'}</a>
+                                  <img src={like} alt="Like"/>
+                                }
+                              </a>
                             </button>  
                           }
                           {/* Comment button */}
                           <button className="comment-button">
                             <a href={`/posts/${post.id}/comment/`}>
-                        Comment
+                              <img src={comment} alt="Comment"/>
                             </a>
                           </button>
+                        
+
                         </div>
-                        <p>{post.likedBy.length} likes</p>
-                        <p><strong>{post.owner.username}</strong> {post.caption}</p>
-                        <p>{post.createdAt}</p>
+                        <div className="post-info">
+                          <p><strong>{post.likedBy.length} likes</strong></p>
+                          <p><strong>{post.owner.username}</strong> {post.caption}</p>
+                          <p>{post.createdAt}</p>
+                        </div>
                         <div className="home-comment-container">
                           {post.comments.map(comment=>(
                             <p key={comment.id}><strong>{comment.owner.username}</strong> {comment.text}</p>
@@ -124,11 +147,16 @@ function EventIndex() {
                   </div>
                 </div>
                 <div className="home-page-right">
-                  <h4>Suggestions for you</h4>
+                  <h5>Suggestions for you</h5>
                   <div className="suggestion-posts-container">
                     {arrayUniqueByKey.length === 0 &&
                       <div className="unpopulated-suggestions">        
-                        <h1>You are not following anybody yet - go to the explore page to find some cool accounts and populate your suggestions.</h1>
+                        <h6>
+                          No suggestions yet! 
+                          <br></br> 
+                          <br></br>
+                          Go to the explore page to find some cool accounts and populate your home feed.
+                        </h6>
                         <button><a href={'/posts/'}>Explore Kollektiv</a></button>
                       </div>
                     }
@@ -164,4 +192,4 @@ function EventIndex() {
   )
   
 }
-export default EventIndex
+export default Home

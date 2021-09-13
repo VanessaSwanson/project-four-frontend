@@ -3,7 +3,7 @@ import React from 'react'
 
 const uploadUrl = process.env.REACT_APP_CLOUDINARY_URL
 
-function ImageUpload( { value, uploadPreset, onChange, name, labelText  = 'Upload Image' }) {
+function ImageUpload( { value, uploadPreset, onChange, name, className, labelText  = 'Upload Image' }) {
 
   const handleUpload = async (event) => {
     const data = new FormData()
@@ -28,7 +28,7 @@ function ImageUpload( { value, uploadPreset, onChange, name, labelText  = 'Uploa
       )}
       {!value && (
         <>
-          <label className="file-label" htmlFor="file">Choose a file...</label>
+          <label className={className} htmlFor="file">Choose a file...</label>
           <input 
             className="file-input"
             type="file"
