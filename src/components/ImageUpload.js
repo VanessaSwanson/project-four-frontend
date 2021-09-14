@@ -23,7 +23,7 @@ function ImageUpload( { value, uploadPreset, onChange, name, className, labelTex
             alt="selected"
             className="image-preview"
           />
-          {/* <button onClick={handleRemoveImage}>Changed your mind?</button> */}
+          {/* <button onClick={console.log('clicked')}>Changed your mind?</button> */}
         </div>
       )}
       {!value && (

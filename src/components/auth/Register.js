@@ -20,7 +20,7 @@ function Register() {
   const history = useHistory()
   const [show, setShow] = React.useState(false)
   const [alert, setAlert] = React.useState(null)
-  const { formData, formErrors, handleUploadedImage, handleChange, setFormErrors } = useForm(initialState)
+  const { formData, formErrors, setFormErrors, handleChange, handleUploadedImage } = useForm(initialState)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

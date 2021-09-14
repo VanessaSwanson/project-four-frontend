@@ -16,8 +16,13 @@ export function getAllPosts() {
 export function getSinglePost(id){
   return axios.get(`/api/posts/${id}`)
 }
+
 export function createPost(formData) {
   return axios.post('/api/posts/create/', formData, getHeaders())
+}
+
+export function deletePost(id) {
+  return axios.delete(`/api/posts/${id}/`, getHeaders())
 }
 
 export function likePost(id) {
@@ -26,6 +31,10 @@ export function likePost(id) {
 
 export function commentPost(id, formData) {
   return axios.post(`/api/posts/${id}/comment/`, formData, getHeaders())
+}
+
+export function deleteCommentPost(id) {
+  axios.delete(`/api/posts/${id}/comment/${id}`, getHeaders())
 }
 
 

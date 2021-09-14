@@ -1,6 +1,8 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getSingleUser, getProfile } from '../../lib/api'
+import { getSingleUser, getProfile, followUser } from '../../lib/api'
+import michelangelo from '../common/resources/michelangelo.png'
+
 
 function UserShow() {
   const { userId } = useParams()
@@ -33,12 +35,20 @@ function UserShow() {
     getData()
   }, [])
 
+  const handleFollow = async () => {
+    try { 
+      await followUser(userId)
+      const res = await getProfile()
+      setCurrentUser(res.data)
+      location.reload()
+    } catch (err) {
+      console.log(err)
+    }
+  } 
+
   const isFollowing = user?.followedBy.some(follower => {
     return follower.id === currentUser?.id
   })
-
-  // console.log(isFollowing)
-  // console.log(currentUser)
 
   return (
     <section className="user-show-section">
@@ -46,13 +56,16 @@ function UserShow() {
       {isLoading && <p>...loading</p>}
       {user &&
         <div className="user-show-container">
+          {/* HEADER */}
           <div className="user-show-header">
             <div className="user-show-header-left">
+              {/* PROFILE IMAGE */}
               <figure>
                 <img className="profile-image" src={user.profileImage} alt={user.username}></img>
               </figure>
             </div>
             <div className="user-show-header-right">
+              {/* HEADER RIGHT */}
               <div className="user-controls">
                 <h3>{user.username}</h3>
                 {
@@ -61,19 +74,20 @@ function UserShow() {
                       <a href={`/auth/${user.id}/edit/`}>Edit Profile</a>
                     </button>
                     :
-                    <button className="follow-button">
-                      <a href={`/auth/${user.id}/follow/`}>{isFollowing ? 'Unfollow' : 'Follow'}</a>
+                    <button className="follow-button" onClick={handleFollow}>
+                      {isFollowing ? 'Unfollow' : 'Follow'}
                     </button>
                 }
               </div>
               <div className="user-nums">
-                <p className="nums">{user.postsMade.length} posts</p>
-                <p className="nums">{user.followedBy.length} followers</p>
-                <p className="nums">{user.following.length} following</p>
+                <p className="nums"><strong>{user.postsMade.length} </strong> posts</p>
+                <p className="nums"><strong>{user.followedBy.length} </strong> followers</p>
+                <p className="nums"><strong>{user.following.length} </strong> following</p>
               </div>
-              <p>{user.fullName}</p>
-              <p>{user.bio}</p>
-              {console.log(user)}
+              <div className="user-info">
+                <p><strong>{user.fullName}</strong></p>
+                <p>{user.bio}</p>
+              </div>
             </div>
           </div>
           <hr></hr>
@@ -83,6 +97,11 @@ function UserShow() {
                 <div className="unpopulated-profile-page">
                   <h3>Create your first post!</h3>
                   <button><a href={'/posts/create/'}>Post</a></button>
+                  <div className="unpopulated-home-background">
+                    <figure>
+                      <img src={michelangelo} alt="Michelangelo's creation of Adam"/>
+                    </figure>
+                  </div>
                 </div>
                 :
                 user.postsMade.map(post => (

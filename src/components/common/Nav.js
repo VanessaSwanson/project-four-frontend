@@ -8,8 +8,7 @@ import explore from './resources/explore-logo.png'
 import create from './resources/create-logo.png'
 import search from './resources/search-logo.png'
 
-function Nav( {  posts }) {
-  const isLoading = !posts 
+function Nav() {
   const history = useHistory()
   const [currentUser, setCurrentUser] = React.useState(null)
   const isAuth = isAuthenticated()
@@ -40,7 +39,6 @@ function Nav( {  posts }) {
     
     <nav className="navbar">
       <div className="navbar-contents">
-        {isLoading && <p>...loading</p>}
         <div className="navbar-left">
           <Link to="/" className="navbar-element logo">
             <span id="red">ko</span>
@@ -48,44 +46,48 @@ function Nav( {  posts }) {
             <span id="blue">ek</span>
             <span id="black">tiv</span>
           </Link>
-          {/* SEARCH */}
-          <Link to="/posts" className="navbar-element">
-            <img className="search" src={search} alt="search"/>
-          </Link>
         </div>
-        <div className="navbar-right">
-          {/* HOME */}
-          <Link to="/" className="navbar-element">
-            <img className="home" src={home} alt="home"/>
-          </Link>
-          {isAuth &&
+        {/* SEARCH */}
+        {isAuth &&
         <>
-          <Link to="/posts" className="navbar-element">
-            {/* EXPLORE */}
-            <img className="explore" src={explore} alt="explore"/>
-          </Link>
-          {/* CREATE */}
-          <Link to="/posts/create/" className="navbar-element">
-            <img className="create" src={create} alt="create"/>
-          </Link>
-          {/* PROFILE AND LOGOUT*/}
-          <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle id="custon-dropdown">
-              <img className="profile" src={currentUser?.profileImage} alt="profile"/>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href={`/auth/${currentUser?.id}/`}>
+          <div className="navbar-center">
+            <Link to="/posts" className="navbar-element">
+              <img className="search" src={search} alt="search"/>
+            </Link>
+          </div>
+          <div className="navbar-right">
+            {/* HOME */}
+            <Link to="/" className="navbar-element">
+              <img className="home" src={home} alt="home"/>
+            </Link>
+        
+            <Link to="/posts" className="navbar-element">
+              {/* EXPLORE */}
+              <img className="explore" src={explore} alt="explore"/>
+            </Link>
+            {/* CREATE */}
+            <Link to="/posts/create/" className="navbar-element">
+              <img className="create" src={create} alt="create"/>
+            </Link>
+            {/* PROFILE AND LOGOUT*/}
+            <Dropdown as={ButtonGroup}>
+              <Dropdown.Toggle id="custon-dropdown">
+                <img className="profile" src={currentUser?.profileImage} alt="profile"/>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href={`/auth/${currentUser?.id}/`}>
                 Profile
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={handleLogout}>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleLogout}>
                 Log Out
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </>
-          }
-          {!isAuth &&
+        }
+        {!isAuth &&
         <>
           <Link to="/auth/register/" className="navbar-element">
             Register
@@ -94,8 +96,7 @@ function Nav( {  posts }) {
             Login
           </Link>
         </>
-          }
-        </div>
+        }
       </div>
 
     </nav>

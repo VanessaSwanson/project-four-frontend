@@ -1,5 +1,6 @@
 import React from 'react'
 import PostCard from './PostCard'
+import Loading from '../common/Loading'
 
 
 function ExploreIndex( { isError, posts }) {
@@ -39,7 +40,7 @@ function ExploreIndex( { isError, posts }) {
       
       <section className="explore-index">
         {isError && <p>Oops!</p>}
-        {isLoading && <p>...loading</p>}
+        {isLoading && <Loading/>}
         <div className="explore-posts-container">
           <div className="explore-posts-container-header">
             <div className="search-left">

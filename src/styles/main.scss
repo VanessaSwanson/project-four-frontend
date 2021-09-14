@@ -53,6 +53,54 @@ button {
   font-size: 20px;
 }
 
+// LOADING
+.loading{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
+  margin-top: 50px;
+}
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 50px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #f6b90f;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #f6b90f transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 // NAV
 .navbar {
   font-family: 'DM Sans', sans-serif;
@@ -63,19 +111,28 @@ button {
   height: 70px;
   background-color: white;
   border-bottom: 1px solid #dbdbdb;
+  .navbar-element{
+    padding: 0;
+    margin-top: 0;
+  }
   .navbar-contents{
     display: flex;
     justify-content: center;
     width: 100%;
     .navbar-left{
       display: flex;
-      width: 50%;
+      align-items: center;
       .logo{
         font-size: 25px;
       }
+    }
+    .navbar-center{
+      width: 40%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       .search{
         height: 25px;
-        margin: 0;
       }
     }
     .btn-primary{
@@ -113,14 +170,14 @@ button {
 // FORMS
 
 // Register
-.register, .login{
+.register, .login, .create-post-section, .edit-profile-section{
   width: 43%;
   margin: 60px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .register-top, .register-bottom, .login-top, .login-bottom{
+  .register-top, .register-bottom, .login-top, .login-bottom {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -128,7 +185,7 @@ button {
     text-align: center;
     width: 100%;
     padding: 50px 20px;
-    border: 1px solid #8e8e8e;
+    border: 1px solid #dbdbdb;
     background-color: white;
     color: #8e8e8e;  
   }
@@ -156,6 +213,45 @@ button {
     text-align: center;
     font-size: 14px;
     padding: 10px 10px 0 10px;
+  }
+}
+
+// Create post
+.create-post-section, .edit-profile-section{
+  .form-container{
+    border: 1px solid #dbdbdb;
+    background-color: white;
+    padding: 50px 20px;
+  }
+  .image-upload-container{
+    display: flex;
+    flex-direction: column;
+    color: #8e8e8e;
+    .image-preview{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        max-width:50%;
+      }
+    }
+    .file-label, label{
+      border: 1px solid #dbdbdb;
+    }
+    .file-label, label, .input-warning{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      height: 30px;
+      padding: 20px;
+      cursor: pointer;
+    }
+    .file-input{
+      display: none;
+    }
   }
 }
 
@@ -197,7 +293,7 @@ button {
     input, .input{
       width: 100%;
       padding: 5px;
-      border: 1px solid #8e8e8e;
+      border: 1px solid #dbdbdb;
       border-radius: 3px;
     }
     .input-warning {
@@ -225,11 +321,11 @@ button {
       align-items: center;
       img{
         max-width:50%;
-        border-radius: 50%;
+        // border-radius: 50%;
       }
     }
     .file-label{
-      border: 1px solid #8e8e8e;
+      border: 1px solid #dbdbdb;
     }
     .file-label, .input-warning{
       display: flex;
@@ -247,8 +343,29 @@ button {
   }
 }
 
+// POST CARDS
+.post-card{
+  margin: 15px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  color: black;
+}
+
 
 // HOME PAGE
+.login-home-page{
+  .login-home-message{
+    margin: 50px;
+    a{
+      text-decoration: none;
+      color: #2065ad;
+    }
+  }
+  img{
+    width: 100%;
+  }
+}
 .unpopulated-home-page{
   .unpopulated-home-page-top{
     display: flex;
@@ -279,21 +396,18 @@ button {
 }
 .home-page {
   display: flex;
-  width: 70%;
+  width: 75%;
   margin: 30px auto;
   .mini-profile-image{
     border-radius: 50%;
   }
   .home-page-left{
-    width: 70%;
+    width: 65%;
     .post-card{
-      margin: 15px;
-      background-color: white;
-      border: 1px solid #dbdbdb;
-      border-radius: 3px;
-      color: black;
+      margin-bottom: 30px;
+    }
       .post-header{
-        margin-bottom: 5px;
+        border-bottom: 1px solid #dbdbdb;
         padding: 15px 0 10px 15px;
         .post-header-link{
           display: flex;
@@ -316,11 +430,19 @@ button {
           }
         }
       }
-      img{
-        max-width: 100%;
+      .home-post-image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #dbdbdb;
+        img{
+          max-width: 100%;
+          max-height: 500px;
+        }
       }
       .post-controls {
         padding: 10px;
+        border-bottom: 1px solid #dbdbdb;
         button{
           width: 30px;
           padding: 0;
@@ -333,9 +455,31 @@ button {
       }
       .post-info{
         padding: 0 20px;
+        border-bottom: 1px solid #dbdbdb;
         p{
           margin: 5px 0;
         }
+        .created-at{
+          color: #8e8e8e;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+    }
+    .home-comment-container {
+      margin: 10px 10px 10px 20px;
+      height: 100px;
+      overflow-y: scroll;
+      p{
+        margin: 0;
+      }
+      .comment-nums {
+        color: #8e8e8e;
+        margin-bottom: 10px;
+      }
+      .created-at{
+        color: #8e8e8e;
+        font-size: 12px;
+        margin-bottom: 10px;
       }
     }
     
@@ -350,23 +494,34 @@ button {
     .suggestion-posts-container{
       .suggestion-card{
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
+        margin-bottom: 10px;
+        p{
+          margin: 0;
+        }
         .suggestion-card-left{
+          width: 15%;
+          margin-right: 8px;
           img{
-            max-width: 50px;
-            max-height: 50px;
+            width: 100%;
+            max-height: 100%;
           }
         }
         .suggestion-card-right{
           display: flex;
           justify-content: space-around;
           align-items: center;
-          button{
-            margin-left: 15px;
+          width: 85%;
+          margin-left: 5px;
+          a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #2065ad;
           }
           p{
             margin: 0;
+            font-size: 13px;
           }
         }
       }
@@ -391,9 +546,18 @@ button {
     input{
       margin: 0 20px;
     }
+    .search-left{
+      margin-top: 10px;
+    }
+    .search-right{
+      input{
+        font-size: 15px;
+      }
+    }
   }
 }
-.explore-posts-container-main {
+.explore-posts-container-main, .more-posts-container {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -403,11 +567,32 @@ button {
 .post-cards-container {
   margin: 10px;
   width: 25%;
-  height: 420px;
+  height: 350px;
   margin: 10px;
+  position: relative;
+  .hoverable-div{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+    .likes, .comments{
+      display: flex;
+      justify-content: space-around;
+      font-size: 20px;
+      margin: 10px;
+      color: white;
+    }
+    img{
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
   .post-card {
-    border: 1px solid black;
-    border-radius: 5px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -439,60 +624,201 @@ button {
 .owner-profile-image{
   max-width: 50px;
   max-height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 .post-show-main{
   display: flex;
   width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin-bottom: 40px;
   .post-show-left{
-    width: 65%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .post-image{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    .post-delete-button{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      height: 30px;
+      width: 100%;
+      button {
+        background-color: white;
+      }
+    }
     img{
       max-width: 100%;
+      height: 100%;
+      max-height: 500px;
     }
   }
   .post-show-right{
+    border-left: 1px solid #dbdbdb;
+    width: 40%;
+    .header-container{
+      width: 100%;
+    }
     .post-show-right-header{
+      width: 100%;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      border-bottom: 1px solid #dbdbdb;
+      margin-top: 10px;
+      a {
+        text-decoration: none;
+        color: black;
+      }
       button {
         margin-left: 10px;
+      }
+      button {
+        background-color: white;
+        color: #2065ad;
+        font-size: 15px;
+        margin-bottom: 15px;
+      }
+      p.follow {
+        a{
+          color: #2065ad;
+        }
       }
     }
     .post-show-right-main{
       .post-show-caption{
+        .post-show-caption-left{
+          width: 20%;
+        }
         display: flex;
+        margin: 10px 0 10px 10px;
+        p{
+          margin: 0 0 0 10px;
+        }
+        img {
+          margin: 0 5px 0 5px;
+          max-width: 50px;
+        }
       }
     }
   }
   .post-show-comments{
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    height: 100px;
+    overflow-y: scroll;
+    .no-comments{
+      margin: 10px 0 0 20px;
+      color: #8e8e8e;
+    }
     .post-show-comment-container{
       display: flex;
+      margin: 20px 10px 10px 10px;
+      .post-show-comment-left{
+        width: 20%;
+        img {
+          margin: 0 0 0 10px;
+          max-width: 90%;
+        }
+      }
+      .post-show-comment-right{
+        margin-left: 8px;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        .comment{
+          height: 100%;
+        }
+        button{
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          margin-left: 5px;
+          background-color: white;
+        }
+        p{
+          margin: 0;
+        }
+        .comment-nums{
+          color: #8e8e8e;
+          :last-child {
+            font-size: 12px;
+            margin-top: 3px;
+          }
+        }
+      }
     }
+  }
+  .post-show-controls{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
   }
   .post-show-buttons {
     display: flex;
+    border-right: 1px solid #dbdbdb;
+    img {
+      max-height: 25px;
+      margin: 10px 15px;
+    }
+  }
+  .post-show-nums {
+    border-bottom: 1px solid #dbdbdb;
+    margin-top: 10px;
+    p {
+      margin: 0 0 0 10px;
+    }
+    .created-at {
+      color: #8e8e8e;
+      margin-bottom: 5px;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+  }
+  .comments-form-container{
+    form {
+      display: flex;
+      align-items: center;
+      margin: 20px 0 0 10px;
+      img {
+        max-height: 25px;
+        margin: 0 5px 20px 10px;
+      }
+    }
+    .input{
+      display: flex;
+      font-size: 15px;
+      border: none;
+      resize: none;
+      margin: 0 10px 0 20px;
+      width: 80%;
+    }
     button {
-      margin: 0 20px;
+      background-color: white;
+      font-size: 15px;
+      color: #2065ad;
+      margin: 0 5px 20px 0;
     }
   }
 }
 .post-show-lower{
-  .more-posts-container{
-    display: flex;
-    flex-wrap: wrap;
-    .more-posts-card{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid black;
-      margin: 10px;
-      width: 30%;
-      img{
-        max-width: 100%;
-        max-height: 250px;
-      }
-    }
+  color: #8e8e8e;
+  .post-cards-container{
+    width: 30%;
+    height: 300px;
   }
+
 }
 
 // POST LIKE and USER FOLLOW
@@ -526,14 +852,60 @@ button {
 .user-show-header {
   display: flex;
   justify-content: center;
+  margin: 20px 0;
   img {
     max-height: 200px;
     max-width: 200px;
+    border-radius: 50%;
+    margin-right: 70px;
   }
   .user-show-header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .user-controls{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 10px;
+      h3 {
+        margin: 0;
+        padding-left: 20px;
+      }
+      button {
+        font-size: 15px;
+        background-color: #fafafa;
+        margin-left: 30px;
+        color: #2065ad;
+      }
+    }
     .user-nums{
       display: flex;
       justify-content: space-around;
+    }
+    .user-info {
+      padding-left: 20px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+.unpopulated-profile-page {
+  h3 {
+    margin: 20px 0;
+  }
+  button {
+    font-size: 15px;
+  }
+  .unpopulated-home-background{
+    width: 100%;
+    figure{
+      display: flex;
+      justify-content: flex-end;
+    }
+    img{
+      max-width: 70%;
     }
   }
 }
@@ -542,14 +914,16 @@ button {
   flex-wrap: wrap;
   .user-show-post-link {
     width: 30%;
+    margin: 10px;
     .user-show-post {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 300px;
-      margin: 10px;
-      border: 1px solid black;
+      background-color: white;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
       img {
         max-width: 100%;
         max-height: 100%;

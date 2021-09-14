@@ -19,6 +19,7 @@ import EditProfile from './components/auth/EditProfile'
 function App() {
   const [posts, setPosts] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
+  
 
   React.useEffect(() => {
     const getData = async () => {

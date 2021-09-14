@@ -1,14 +1,15 @@
 import React from 'react'
+import TimeAgo from 'react-timeago'
 import { getProfile } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
-
+import Loading from './Loading'
 import matisse from './resources/matisse.png'
-import unlike from './resources/unlike.png'
-import like from './resources/like.png'
-import comment from './resources/comment.png'
+import kandinsky from './resources/kandinsky.png'
 
 function Home() {
   const [user, setUser] = React.useState(null)
+  const [isError, setIsError] = React.useState(false)
+  const isLoading = !user && !isError
 
   React.useEffect(() => {
     const getData = async () => {
@@ -16,14 +17,15 @@ function Home() {
         const response = await getProfile()
         setUser(response.data)
       } catch (err) {
+        setIsError(true)
         console.log(err)
       }    
     }
     getData()
+    // setTimeout(getData, 3000)
   },[])
 
   const isAuth = isAuthenticated()
-  console.log(isAuth)
   
   // These lines filter the home page so it shows posts from those you are following only, as well as your own posts
   const following = []
@@ -71,10 +73,18 @@ function Home() {
 
   return (
     <section className="home-page-section">
-      {/* {user && */}
+      {/* {isError && <p>Oops!</p>} */}
+      {isLoading && <Loading/>}
       <>
         {!isAuth ?
-          <h1>Login to Kollektiv</h1>
+          <div className="login-home-page">
+            <div className="login-home-message">
+              <h2>kollektiv - the social site for artists</h2>
+              <h5><a href={'/auth/register/'}>Register</a> to see posts from your favorite visual artists</h5>
+              <h5>Already part of the kollektiv? <a href={'/auth/login/'}>Login</a></h5>
+            </div>
+            <img src={kandinsky} alt="Composition VIII by Wassily Kandinsky"/>
+          </div>
           :
         
           <div className="home-page">
@@ -106,39 +116,22 @@ function Home() {
                             <p>{post.owner?.username}</p>
                           </a>
                         </div>
-                        <img src={post.image} alt={post.title}/>
-                        <div className="post-controls">
-                          {/* Like button */}
-                          {post.owner?.id === user.id ?
-                            ''
-                            :
-                            <button className="like-button">
-                              <a href={`/posts/${post.id}/like/`}>
-                                {post.likedBy.some(fan => (fan.id === user.id)) ? 
-                                  <img src={unlike} alt="Unlike"/>
-                                  : 
-                                  <img src={like} alt="Like"/>
-                                }
-                              </a>
-                            </button>  
-                          }
-                          {/* Comment button */}
-                          <button className="comment-button">
-                            <a href={`/posts/${post.id}/comment/`}>
-                              <img src={comment} alt="Comment"/>
-                            </a>
-                          </button>
-                        
-
+                        <div className="home-post-image">
+                          <a href={`/posts/${post.id}/`}><img src={post.image} alt={post.title}/></a>
                         </div>
+                        
                         <div className="post-info">
                           <p><strong>{post.likedBy.length} likes</strong></p>
                           <p><strong>{post.owner.username}</strong> {post.caption}</p>
-                          <p>{post.createdAt}</p>
+                          <p className="created-at"><TimeAgo date={post.createdAt}/></p>
                         </div>
                         <div className="home-comment-container">
+                          <p className="comment-nums">{post.comments.length} comments</p>
                           {post.comments.map(comment=>(
-                            <p key={comment.id}><strong>{comment.owner.username}</strong> {comment.text}</p>
+                            <>
+                              <p key={comment.id}><strong>{comment.owner.username}</strong> {comment.text}</p>
+                              <p className="created-at"><TimeAgo date={comment.createdAt}/></p>
+                            </>
                           ))
                           }
                         </div>
@@ -174,9 +167,7 @@ function Home() {
                               <p><strong>{suggestion.username}</strong></p>
                               <p>Suggested for you</p>
                             </div>
-                            <button className="follow-button">
-                              <a href={`/auth/${suggestion.id}/follow/`}>Follow</a>
-                            </button>
+                            <a href={`/auth/${suggestion.id}/follow/`}>Follow</a>
                           </div>
                         </div>
                     ))}
