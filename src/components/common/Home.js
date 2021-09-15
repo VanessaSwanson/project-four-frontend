@@ -72,11 +72,14 @@ function Home() {
   }
 
   return (
+    
     <section className="home-page-section">
+  
       {/* {isError && <p>Oops!</p>} */}
       {isLoading && <Loading/>}
       <>
-        {!isAuth ?
+        
+        {!isAuth &&
           <div className="login-home-page">
             <div className="login-home-message">
               <h2>kollektiv - the social site for artists</h2>
@@ -85,8 +88,8 @@ function Home() {
             </div>
             <img src={kandinsky} alt="Composition VIII by Wassily Kandinsky"/>
           </div>
-          :
-        
+        }
+        {user &&
           <div className="home-page">
             {followingPosts.length === 0 ? 
               <div className="unpopulated-home-page">  
@@ -160,7 +163,7 @@ function Home() {
                         :
                         <div className="suggestion-card" key={suggestion.id}>
                           <div className="suggestion-card-left">
-                            <img className="mini-profile-image" src={suggestion.profileImage} alt={suggestion.username}/>
+                            <a href={`/auth/${suggestion.id}/`}><img className="mini-profile-image" src={suggestion.profileImage} alt={suggestion.username}/></a>
                           </div>
                           <div className="suggestion-card-right">
                             <div className="suggestion-card-name">
@@ -176,7 +179,8 @@ function Home() {
               </>
             }
           </div>
-        } 
+        
+        }
       </>
       {/* } */}
     </section>

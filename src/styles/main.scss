@@ -467,7 +467,7 @@ button {
     }
     .home-comment-container {
       margin: 10px 10px 10px 20px;
-      height: 100px;
+      height: 90px;
       overflow-y: scroll;
       p{
         margin: 0;
@@ -931,5 +931,19 @@ button {
     }
   }
   
+}
+
+// MESSAGES
+.messages-container{
+  width: 60%;
+  margin: 40px auto;
+  h3{
+    margin-bottom: 20px;
+  }
+  .message-container {
+    margin: 10px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+  }
 }
 

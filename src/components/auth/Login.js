@@ -16,8 +16,8 @@ function Login() {
   const history = useHistory()
   const [show, setShow] = React.useState(false)
   const [alert, setAlert] = React.useState(null)
-  // const [loggedInUserUsername, setLoggedInUserUsername] = React.useState(null)
   const { formData, formErrors, handleChange, setFormErrors } = useForm(initialState)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -25,7 +25,6 @@ function Login() {
       const response = await loginUser(formData)
       console.log(response)
       setToken(response.data.token)
-      // setLoggedInUserUsername(response.data.message.split(' ').splice(2).toString())
       history.push('/')
     } catch (err) {
       setFormErrors({ ...formErrors, ...err.response.data.errors })
@@ -70,6 +69,7 @@ function Login() {
             <div className="field">
               <div className="control">
                 <input
+                  type="password"
                   className="input"
                   placeholder="Password"
                   name="password"

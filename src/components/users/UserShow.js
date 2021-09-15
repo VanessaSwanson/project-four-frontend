@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getSingleUser, getProfile, followUser } from '../../lib/api'
+import Loading from '../common/Loading'
 import michelangelo from '../common/resources/michelangelo.png'
 
 
@@ -53,7 +54,7 @@ function UserShow() {
   return (
     <section className="user-show-section">
       {isError && <p>Oops!</p>}
-      {isLoading && <p>...loading</p>}
+      {isLoading && <Loading />}
       {user &&
         <div className="user-show-container">
           {/* HEADER */}

@@ -11,6 +11,7 @@ import Nav from './components/common/Nav'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import UserShow from './components/users/UserShow'
+import Inbox from './components/users/Inbox'
 import UserFollow from './components/users/UserFollow'
 import CreatePost from './components/posts/CreatePost'
 import EditProfile from './components/auth/EditProfile'
@@ -80,6 +81,9 @@ function App() {
           <Route exact path="/auth/:userId/edit/">
             <EditProfile />
           </Route>
+          <Route exact path="/auth/:userId/inbox/">
+            <Inbox />
+          </Route>  
           <Route exact path="/auth/:userId/">
             <UserShow />
           </Route>        
