@@ -66,3 +66,7 @@ export function getProfile() {
 export function editProfile(id, formData) {
   return axios.put(`/api/auth/${id}/edit/`, formData, getHeaders())
 }
+
+export function sendMessage(id, formData) {
+  return axios.post(`/api/auth/${id}/message/`, formData, getHeaders())
+}

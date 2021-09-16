@@ -32,3 +32,7 @@ export function isOwner(userId) {
   }
   return userId === payload.sub
 }
+
+export function getUserId() {
+  return getPayLoad().sub
+}

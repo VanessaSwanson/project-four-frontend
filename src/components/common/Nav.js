@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { getProfile } from '../../lib/api'
-import { removeToken, isAuthenticated } from '../../lib/auth'
+import { removeToken, isAuthenticated, getUserId } from '../../lib/auth'
 import { Dropdown, ButtonGroup } from 'react-bootstrap'
 import home from './resources/home-logo.png'
 import explore from './resources/explore-logo.png'
@@ -16,14 +16,14 @@ function Nav() {
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const res = await getProfile()
+        const res = await getProfile(getUserId())
         setCurrentUser(res.data)
       } catch (err) {
         console.log(err)
       }
     }
     getData()
-  }, [])
+  }, [getUserId()])
 
   const handleLogout = async () => {
     removeToken()
@@ -87,7 +87,7 @@ function Nav() {
           </div>
         </>
         }
-        {!isAuth &&
+        {/* {!isAuth &&
         <>
           <Link to="/auth/register/" className="navbar-element">
             Register
@@ -96,7 +96,7 @@ function Nav() {
             Login
           </Link>
         </>
-        }
+        } */}
       </div>
 
     </nav>

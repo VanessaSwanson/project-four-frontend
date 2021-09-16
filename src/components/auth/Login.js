@@ -18,14 +18,13 @@ function Login() {
   const [alert, setAlert] = React.useState(null)
   const { formData, formErrors, handleChange, setFormErrors } = useForm(initialState)
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await loginUser(formData)
-      console.log(response)
       setToken(response.data.token)
       history.push('/')
+      location.reload()
     } catch (err) {
       setFormErrors({ ...formErrors, ...err.response.data.errors })
       setAlert(err.response.data.detail)

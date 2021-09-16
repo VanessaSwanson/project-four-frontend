@@ -39,9 +39,9 @@ function UserShow() {
   const handleFollow = async () => {
     try { 
       await followUser(userId)
-      const res = await getProfile()
-      setCurrentUser(res.data)
-      location.reload()
+      const res = await getSingleUser(userId)
+      setUser(res.data)
+      history.pushState(`/auth/${userId}/`)
     } catch (err) {
       console.log(err)
     }

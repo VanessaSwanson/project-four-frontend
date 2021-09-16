@@ -4,6 +4,7 @@ import React from 'react'
 const uploadUrl = process.env.REACT_APP_CLOUDINARY_URL
 
 function ImageUpload( { value, uploadPreset, onChange, name, className, labelText  = 'Upload Image' }) {
+  // const [srcValue, setSrcValue] = React.useState(value)
 
   const handleUpload = async (event) => {
     const data = new FormData()
@@ -12,6 +13,11 @@ function ImageUpload( { value, uploadPreset, onChange, name, className, labelTex
     const res = await axios.post(uploadUrl, data)
     onChange(res.data.url, name)
   }
+
+  // const handleRemovePreview = () => {
+  //   setSrcValue('')
+  //   console.log('clicked')
+  // } 
 
   return (
     <div className="image-upload-container">
@@ -23,7 +29,12 @@ function ImageUpload( { value, uploadPreset, onChange, name, className, labelTex
             alt="selected"
             className="image-preview"
           />
-          {/* <button onClick={console.log('clicked')}>Changed your mind?</button> */}
+          {/* <button 
+            type="button"
+            onClick={handleRemovePreview()}>x</button> */}
+          {/* onClick={() => { */}
+          {/* (console.log('clicked')) */}
+          {/* }}>x</button> */}
         </div>
       )}
       {!value && (

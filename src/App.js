@@ -78,12 +78,13 @@ function App() {
             <Login />
           </Route>
 
-          <Route exact path="/auth/:userId/edit/">
-            <EditProfile />
-          </Route>
           <Route exact path="/auth/:userId/inbox/">
             <Inbox />
-          </Route>  
+          </Route> 
+          
+          <Route exact path="/auth/:userId/edit/">
+            <EditProfile />
+          </Route> 
           <Route exact path="/auth/:userId/">
             <UserShow />
           </Route>        

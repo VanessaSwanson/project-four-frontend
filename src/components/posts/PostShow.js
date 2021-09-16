@@ -66,8 +66,8 @@ function PostShow() {
     try { 
       const userId = e.target.name
       await followUser(userId)
-      const res = await getProfile()
-      setCurrentUser(res.data)
+      const res = await getSinglePost(postId)
+      setPost(res.data)
       history.push(`/posts/${postId}/`)
     } catch (err) {
       console.log(err)
@@ -78,19 +78,6 @@ function PostShow() {
     try {
       await deletePost(postId)  
       history.push('/')
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const handleDeleteComment = async (e) => {
-    e.preventDefault()
-    try {
-      const commentId = e.target.name
-      await deleteCommentPost(commentId)  
-      const res = await getSinglePost(postId)
-      setPost(res.data)
-      location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -114,13 +101,29 @@ function PostShow() {
       await commentPost(postId, formData)
       const res = await getSinglePost(postId)
       setPost(res.data)
-      setFormData(null)
-      history.push(`/posts/${postId}`)
+      setFormData('')
+      history.push(`/posts/${postId}/`)
     } catch (err) {
       setFormErrors({ ...formErrors, ...err.response.data })
       setAlert(err.response.data)
       console.log(err.response)
       console.log(alert)
+    }
+  }
+
+  const handleDeleteComment = async (e) => {
+    e.preventDefault()
+    try {
+      const commentId = e.target.name
+      await deleteCommentPost(commentId)  
+      const res = await getSinglePost(postId)
+      setPost(res.data)
+      const response = await getSinglePost(postId)
+      setPost(response.data)
+      history.push(`/posts/${postId}/`)
+      // location.reload()
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -225,6 +228,7 @@ function PostShow() {
                     :
                     post.comments.map(comment =>(
                       <div className="post-show-comment-container" key={comment.id}>
+
                         <div className="post-show-comment-left">
                           <figure>
                             <a href={`/auth/${comment.owner.id}/`}>
@@ -295,7 +299,7 @@ function PostShow() {
             <div className="more-posts-container">
               {post.owner.postsMade.sort(sortPosts).slice(0, 3).map(post=>
               
-                <PostCard key={ post._id } {...post}/>
+                <PostCard key={ post.id } {...post}/>
             
               )}
             </div> 

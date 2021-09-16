@@ -1,7 +1,9 @@
 import React from 'react'
 import TimeAgo from 'react-timeago'
-import { getProfile } from '../../lib/api'
-import { isAuthenticated } from '../../lib/auth'
+import { useHistory } from 'react-router-dom'
+
+import { getProfile, followUser } from '../../lib/api'
+import { isAuthenticated, getUserId } from '../../lib/auth'
 import Loading from './Loading'
 import matisse from './resources/matisse.png'
 import kandinsky from './resources/kandinsky.png'
@@ -9,13 +11,15 @@ import kandinsky from './resources/kandinsky.png'
 function Home() {
   const [user, setUser] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
+  const isAuth = isAuthenticated()
+  const history = useHistory()
   const isLoading = !user && !isError
 
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getProfile()
-        setUser(response.data)
+        const response = await getProfile(getUserId())
+        return setUser(response.data)
       } catch (err) {
         setIsError(true)
         console.log(err)
@@ -25,7 +29,19 @@ function Home() {
     // setTimeout(getData, 3000)
   },[])
 
-  const isAuth = isAuthenticated()
+
+  const handleFollow = async (e) => {
+    try { 
+      const userId = e.target.name
+      await followUser(userId)
+      const res = await getProfile()
+      setUser(res.data)
+      history.push(`/auth/${userId}/`)
+    } catch (err) {
+      console.log(err)
+    }
+  } 
+
   
   // These lines filter the home page so it shows posts from those you are following only, as well as your own posts
   const following = []
@@ -170,7 +186,9 @@ function Home() {
                               <p><strong>{suggestion.username}</strong></p>
                               <p>Suggested for you</p>
                             </div>
-                            <a href={`/auth/${suggestion.id}/follow/`}>Follow</a>
+                            <button className="follow" onClick={handleFollow} name={suggestion.id}>
+                              {suggestion.followedBy.some(follower =>(follower === user.id)) ? 'Unfollow' : 'Follow'}
+                            </button>
                           </div>
                         </div>
                     ))}

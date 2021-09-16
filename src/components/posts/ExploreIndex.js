@@ -18,7 +18,7 @@ function ExploreIndex( { isError, posts }) {
       (post.owner.username.toLowerCase().includes(searchValue.toLocaleLowerCase())
       ||
       (post.caption.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-      || searchValue === 'Clear search'
+      || searchValue === 'x'
       )
     })
   }
@@ -63,7 +63,13 @@ function ExploreIndex( { isError, posts }) {
               />
               <input
                 type="button"
-                value="Clear search"
+                value="#WomenArtists"
+                onClick={handleSearch}
+              />
+              <input
+                className="clear"
+                type="button"
+                value="x"
                 onClick={handleSearch}
               />
             </div>

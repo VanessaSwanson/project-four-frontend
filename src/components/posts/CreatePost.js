@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { Alert, Button } from 'react-bootstrap'
 import { createPost } from '../../lib/api'
 import ImageUpload from '../ImageUpload'
@@ -12,7 +12,8 @@ const initialState = {
 }
 
 function CreatePost () {
-  // const history = useHistory()
+  const history = useHistory()
+  const location = useLocation()
   const [show, setShow] = React.useState(false)
   const [alert, setAlert] = React.useState(null)
   const { formData, handleUploadedImage, handleChange } = useForm(initialState)
@@ -21,13 +22,12 @@ function CreatePost () {
     e.preventDefault()
     try {
       const response = await createPost(formData)
-      history.push('/posts')
+      history.push('/posts/')
       location.reload()
       console.log(response.data)
     } catch (err) {
-      setAlert(err.response.data)
+      setAlert(err.response?.data)
       setShow(true)
-      console.log(err.response)
     }
   }
 
