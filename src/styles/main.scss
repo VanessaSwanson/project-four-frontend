@@ -146,7 +146,7 @@ button {
     .navbar-right{
       display: flex;
       align-items: center;
-      .home, .explore, .create{
+      .home, .explore, .create, .message{
         height: 25px;
         margin: 0;
       }
@@ -251,6 +251,24 @@ button {
     }
     .file-input{
       display: none;
+    }
+    .image-preview{
+      display: flex;
+      flex-direction: column;
+      padding: 30px 0;
+      .remove-preview-button{
+        margin-bottom: 10px;
+        width: 100%;
+        button{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          background-color: #ca322f;
+        }
+      }
+
     }
   }
 }
@@ -590,28 +608,7 @@ button {
   height: 350px;
   margin: 10px;
   position: relative;
-  .hoverable-div{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: absolute;
-    z-index: 10;
-    cursor: pointer;
-    .likes, .comments{
-      display: flex;
-      justify-content: space-around;
-      font-size: 20px;
-      margin: 10px;
-      color: white;
-    }
-    img{
-      width: 30px;
-      margin-right: 10px;
-    }
-  }
+
   .post-card {
     width: 100%;
     height: 100%;
@@ -626,11 +623,11 @@ button {
       display: flex;
       justify-content: center;
       align-items: center;
-      a {
+      // a {
         img {
           max-width: 100%;
           max-height: 300px;
-        }
+        // }
       }
     }
   }
@@ -885,7 +882,7 @@ button {
     justify-content: center;
     .user-controls{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
       h3 {
@@ -893,7 +890,7 @@ button {
         padding-left: 20px;
       }
       button, a {
-        font-size: 15px;
+        font-size: 17px;
         background-color: #fafafa;
         margin-left: 30px;
         color: #2065ad;
@@ -901,7 +898,8 @@ button {
     }
     .user-nums{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      margin-left: 20px;
     }
     .user-info {
       padding-left: 20px;
@@ -954,6 +952,10 @@ button {
 }
 
 // MESSAGES
+.unpopulated-messages-container{
+  padding: 30px;
+  text-align: center;
+}
 .messages-container{
   width: 70%;
   margin: 40px auto;
@@ -963,9 +965,12 @@ button {
     width: 100%;
     margin-left: 1px;
   }
-
+  .nav-link.active {
+    background-color: white;
+    max-width: 100%;
+  }
   .col-sm-3{
-    width: 35%;
+    width: 38%;
     border-right: 1px solid #dbdbdb;
     .a, .nav-link{
       display: flex;
@@ -985,22 +990,46 @@ button {
     }
   }
   .message-container-right{
-    width: 65%;
+    width: 62%;
     padding: 0px 30px;
   }
+  .message-container{
+    border-bottom: 1px solid #dbdbdb;
+  }
+  .chat-title {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #dbdbdb;
+    img {
+      width: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    p{
+      margin-top: 10px;
+    }
+  }
   .message {
-    margin-bottom: 20px;
+    margin: 20px 0;
     p{
       margin: 0;
     }
-  }
-    .message-align-right, .message-align-left {
-      padding: 20px;
-      p {
-        margin: 0;
-      }
+    .send-time{
+      color: #8e8e8e;
+      font-size: 12px;
     }
+  }
+
+  .message-right{
+    text-align: right;
+  }
+  .message-left{
+    text-align: left;
+  }
   .create-message{
+    border-bottom: 1px solid #dbdbdb;
     button{
       background-color: white;
       margin-right: 20px;

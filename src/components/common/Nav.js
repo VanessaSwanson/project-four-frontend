@@ -7,6 +7,7 @@ import home from './resources/home-logo.png'
 import explore from './resources/explore-logo.png'
 import create from './resources/create-logo.png'
 import search from './resources/search-logo.png'
+import message from './resources/message-black.png'
 
 function Nav() {
   const history = useHistory()
@@ -16,6 +17,7 @@ function Nav() {
   React.useEffect(() => {
     const getData = async () => {
       try {
+        // const res = await getProfile(getUserId())
         const res = await getProfile(getUserId())
         setCurrentUser(res.data)
       } catch (err) {
@@ -30,10 +32,6 @@ function Nav() {
     history.push('/')
     location.reload()
   }
-
-  // console.log(currentUser)
-  // console.log(currentUser.id)
-  // console.log(isAuth)
 
   return (
     
@@ -51,7 +49,7 @@ function Nav() {
         {isAuth &&
         <>
           <div className="navbar-center">
-            <Link to="/posts" className="navbar-element">
+            <Link to="/posts/" className="navbar-element">
               <img className="search" src={search} alt="search"/>
             </Link>
           </div>
@@ -61,13 +59,17 @@ function Nav() {
               <img className="home" src={home} alt="home"/>
             </Link>
         
-            <Link to="/posts" className="navbar-element">
+            <Link to="/posts/" className="navbar-element">
               {/* EXPLORE */}
               <img className="explore" src={explore} alt="explore"/>
             </Link>
             {/* CREATE */}
             <Link to="/posts/create/" className="navbar-element">
               <img className="create" src={create} alt="create"/>
+            </Link>
+            {/* MESSAGE */}
+            <Link to={`/auth/${currentUser?.id}/inbox/`} className="navbar-element">
+              <img className="message" src={message} alt="inbox"/>
             </Link>
             {/* PROFILE AND LOGOUT*/}
             <Dropdown as={ButtonGroup}>
@@ -87,16 +89,6 @@ function Nav() {
           </div>
         </>
         }
-        {/* {!isAuth &&
-        <>
-          <Link to="/auth/register/" className="navbar-element">
-            Register
-          </Link>
-          <Link to="/auth/login/" className="navbar-element">
-            Login
-          </Link>
-        </>
-        } */}
       </div>
 
     </nav>

@@ -14,27 +14,27 @@ function ImageUpload( { value, uploadPreset, onChange, name, className, labelTex
     onChange(res.data.url, name)
   }
 
-  // const handleRemovePreview = () => {
-  //   setSrcValue('')
-  //   console.log('clicked')
-  // } 
+  const handleRemovePreview = () => {
+    onChange('', name)
+  } 
 
   return (
     <div className="image-upload-container">
       <p className="label">{labelText}</p>
       {value && (
         <div className="image-preview">
+          <div className="remove-preview-button">
+            <button 
+              type="button"
+              onClick={handleRemovePreview}>
+                x
+            </button> 
+          </div>
           <img
             src={value}
             alt="selected"
-            className="image-preview"
+            className="preview"
           />
-          {/* <button 
-            type="button"
-            onClick={handleRemovePreview()}>x</button> */}
-          {/* onClick={() => { */}
-          {/* (console.log('clicked')) */}
-          {/* }}>x</button> */}
         </div>
       )}
       {!value && (

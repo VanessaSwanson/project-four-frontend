@@ -19,7 +19,6 @@ function PostShow() {
   const history = useHistory()
   const [alert, setAlert] = React.useState(null)
   const [isShow, setIsShow] = React.useState(false)
-  const [formErrors, setFormErrors] = React.useState(null)
   const [formData, setFormData] = React.useState(
     {
       text: '',
@@ -53,7 +52,6 @@ function PostShow() {
   const handleLike = async () => {
     try { 
       await likePost(postId)
-      // const res = await getProfile()
       const res = await getSinglePost(postId)
       setPost(res.data)
       history.push(`/posts/${postId}/`)
@@ -101,11 +99,10 @@ function PostShow() {
       await commentPost(postId, formData)
       const res = await getSinglePost(postId)
       setPost(res.data)
-      setFormData('')
+      setFormData({ ...formData, text: '' })
       history.push(`/posts/${postId}/`)
     } catch (err) {
-      setFormErrors({ ...formErrors, ...err.response.data })
-      setAlert(err.response.data)
+      setAlert(err.response)
       console.log(err.response)
       console.log(alert)
     }
@@ -121,7 +118,6 @@ function PostShow() {
       const response = await getSinglePost(postId)
       setPost(response.data)
       history.push(`/posts/${postId}/`)
-      // location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -280,6 +276,7 @@ function PostShow() {
                       <textarea
                         className="input"
                         placeholder="Add a comment..."
+                        value={formData.text}
                         name="text"
                         onChange={handleChange}
                       />

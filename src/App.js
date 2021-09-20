@@ -15,6 +15,7 @@ import Inbox from './components/users/Inbox'
 import UserFollow from './components/users/UserFollow'
 import CreatePost from './components/posts/CreatePost'
 import EditProfile from './components/auth/EditProfile'
+import CreateMessage from './components/users/CreateMessage'
 
 
 function App() {
@@ -90,6 +91,12 @@ function App() {
           </Route>        
           <Route exact path="/auth/:userId/follow/">
             <UserFollow />
+          </Route>
+          <Route exact path="/auth/:userId/inbox/">
+            <Inbox />
+          </Route>
+          <Route exact path="/auth/:userId/message/">
+            <CreateMessage />
           </Route>
         </Switch>
       </>

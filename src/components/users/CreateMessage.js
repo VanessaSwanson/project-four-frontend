@@ -1,28 +1,42 @@
 import React from 'react'
-import { useHistory } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { Alert, Button } from 'react-bootstrap'
-import { createPost } from '../../lib/api'
-import ImageUpload from '../ImageUpload'
+import { getProfile, sendMessage } from '../../lib/api'
+import { getUserId } from '../../lib/auth'
 import useForm from '../hooks/useForm'
 
 const initialState = {
-  title: '',
-  caption: '',
-  image: '',
+  message: '',
 }
 
-function CreatePost () {
+function CreateMessage () {
   const history = useHistory()
   // const location = useLocation()
+  const receiver = useParams()
+  const [currentUser, setCurrentUser] = React.useState(null)
   const [show, setShow] = React.useState(false)
   const [alert, setAlert] = React.useState(null)
-  const { formData, handleUploadedImage, handleChange } = useForm(initialState)
+  const { formData, handleChange } = useForm(initialState)
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getProfile(getUserId())
+        setCurrentUser(res.data)
+        const response = await getProfile(getUserId())
+        return setCurrentUser(response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
+  }, [getUserId()])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await createPost(formData)
-      history.push('/')
+      await sendMessage(receiver.userId, formData)
+      history.push(`/auth/${currentUser.id}/inbox/`)
     } catch (err) {
       setAlert(err.response?.data)
       setShow(true)
@@ -32,7 +46,7 @@ function CreatePost () {
   return (
     <section className="create-post-section">
       <div className="form-container">
-        <h2 id="red">Create a post </h2>
+        <h2 id="red">Send a message</h2>
         <form
           className="form"
           onSubmit={handleSubmit}
@@ -49,41 +63,21 @@ function CreatePost () {
               {alert?.caption ?
                 <textarea
                   className="input-warning"
-                  placeholder={'Caption - ' + alert.caption[0]}
-                  name="caption"
+                  placeholder={'Message - ' + alert.caption[0]}
+                  name="message"
                   onChange={handleChange}
                 />
                 :
                 <textarea
                   className="input"
-                  placeholder="Type caption here"
-                  name="caption"
+                  placeholder="Type message"
+                  name="message"
                   onChange={handleChange}
                 />
               }
             </div>
           </div>
-          <div className="field">
-            {alert?.image ?
-              <ImageUpload 
-                value={formData.image}
-                onChange={handleUploadedImage}
-                name='image'
-                uploadPreset = {process.env.REACT_APP_CLOUDINARY_POSTS_UPLOAD_PRESET}
-                labelText='Image - this field may not be blank'
-                className="input-warning"
-              />
-              :
-              <ImageUpload 
-                value={formData.image}
-                onChange={handleUploadedImage}
-                name='image'
-                uploadPreset = {process.env.REACT_APP_CLOUDINARY_POSTS_UPLOAD_PRESET}
-                labelText='Image'
-              />
-            }
-          </div>
-
+          
           <div className="field">
             <button type="submit">Submit</button>
           </div>
@@ -94,4 +88,4 @@ function CreatePost () {
   )
 }
 
-export default CreatePost
+export default CreateMessage

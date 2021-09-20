@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { Tab, Row, Col, Nav } from 'react-bootstrap'
 import TimeAgo from 'react-timeago'
 import Loading from '../common/Loading'
-import { getSingleUser, getProfile } from '../../lib/api'
+import { getSingleUser, getProfile, sendMessage } from '../../lib/api'
+import { getUserId } from '../../lib/auth'
 import message from '../common/resources/message.png'
 
 function Inbox() {
@@ -13,6 +14,7 @@ function Inbox() {
   const [currentUser, setCurrentUser] = React.useState(null)
   const [isError, setIsError] = React.useState(false)
   const isLoading = !user && !isError
+  const history = useHistory()
   const [formData, setFormData] = React.useState(
     {
       message: '',
@@ -22,14 +24,16 @@ function Inbox() {
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const res = await getProfile()
-        return setCurrentUser(res.data)
+        const res = await getProfile(getUserId())
+        setCurrentUser(res.data)
+        const response = await getProfile(getUserId())
+        return setCurrentUser(response.data)
       } catch (err) {
         setIsError(true)
       }
     }
     getData()
-  }, [])
+  }, [getUserId()])
 
   React.useEffect(()=> {
     const getData = async () => {
@@ -54,11 +58,13 @@ function Inbox() {
     e.preventDefault()
     try {
       const receiverId = e.target.name
-      // await sendMessage(receiverId, formData)
-      // const res = await getSingleUser(userId)
-      // setUser(res.data)
-      // history.push(`/auth/${userId}/inbox/`)
-      console.log(receiverId)
+      await sendMessage(receiverId, formData)
+      const res = await getSingleUser(userId)
+      setUser(res.data)
+      setMergedChats([...res.data.messagesMade, ...res.data.messagesReceived])
+      setFormData({ ...formData, message: '' })
+      history.push(`/auth/${userId}/inbox/`)
+      // location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -111,7 +117,6 @@ function Inbox() {
     return 0
   })
 
-
   return (
     <div>
       {isLoading && <Loading />}
@@ -123,60 +128,83 @@ function Inbox() {
             :
             <>
               <div className="messages-container">
-                <Tab.Container id="left-tabs-example" defaultActiveKey="0">
-                  {sortedChats?.map(chat =>
-                    <Row className="tab-row" key={chat.id}>
-                      <Col sm={3} className="message-container-left">
+                {sortedChats.length === 0 ? 
+                  <div className="unpopulated-messages-container">
+                    <h3>No messages yet!</h3>
+                  </div> 
+                  :
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="0">
+                    {sortedChats?.map(chat =>
+                      <Row className="tab-row" key={chat.id}>
+                        <Col sm={3} className="message-container-left">
 
-                        <Nav variant="pills" className="flex-column">
-                          <Nav.Item>
-                            <Nav.Link eventKey={sortedChats.indexOf(chat)}>
-                              <div className="navlink-left">
-                                <img src={chat.user.profileImage} alt={chat.user.username}/>
-                              </div>
-                              {chat.user.username}
-                            </Nav.Link>
-                          </Nav.Item>
-                        </Nav>
-                    
-                      </Col>
+                          <Nav variant="pills" className="flex-column">
+                            <Nav.Item>
+                              <Nav.Link eventKey={sortedChats.indexOf(chat)}>
+                              
+                                <div className="navlink-left">
+                                  <img src={chat.user.profileImage} alt={chat.user.username}/> 
+                                </div>              
+                                {chat.user.username}
+                              </Nav.Link>
+                            </Nav.Item>
+                          </Nav>
+                        </Col>
                       
-                      <Col sm={9} className="message-container-right">                    
-                        <Tab.Content>
-                          <Tab.Pane eventKey={sortedChats.indexOf(chat)} className="tab-pane">
-                            <div className="message-container" key={chat.id}>
-                              <p><strong>{chat.user.username}</strong></p>
-                              {chat.messages.reverse().map(message=>
-                                <div className="message" key={message.id}>
-                                  <p>{message.message}</p>
-                                  {message.isSender ? 'Sent: You' : <p>Sent: {message.sender.username}</p>}
-                                  <p><TimeAgo date={message.createdAt}/></p>
-                                </div>
-                              )}
-                            </div>
-                            <div className="create-message">
-                              <form
-                                className="form"
-                                onSubmit={handleSubmit}
-                              >                
-                                <textarea
-                                  className="input"
-                                  placeholder="Message..."
-                                  name="message"
-                                  onChange={handleChange}
-                                />
-                                <button type="submit" name={chat.user.id}>
-                                  <img src={message} alt="Send message"/> 
-                                </button>
-                              </form>
-                            </div>
-                          </Tab.Pane>
-                        </Tab.Content>
-                    
-                      </Col>
-                    </Row>
-                  )}
-                </Tab.Container>
+                        <Col sm={9} className="message-container-right">                    
+                          <Tab.Content>
+                            <Tab.Pane eventKey={sortedChats.indexOf(chat)} className="tab-pane">
+                              <div className="message-container" key={chat.id}>
+                              
+                                <div className="chat-title">
+                                  <img src={chat.user.profileImage} alt={chat.user.username}/>
+                                  <p><strong>{chat.user.username}</strong></p>
+                                </div> 
+                                {chat.messages.sort(function(a,b){
+                                  if (a.createdAt > b.createdAt) return 1
+                                  if (a.createdAt < b.createdAt) return -1
+                                  return 0
+                                }).map(message=>
+                                  <div className="message" key={message.id}>
+                                    {message.isSender ? 
+                                      <div className="message-right">
+                                        <p>{message.message}</p>
+                                        <p className="send-time"><TimeAgo date={message.createdAt}/></p>
+                                      </div>
+                                      :
+                                      <div className="message-left" key={message.id}>
+                                        <p>{message.message}</p>
+                                        <p className="send-time"><TimeAgo date={message.createdAt}/></p>
+                                      </div>
+                                    }
+                                  </div>
+                                )}
+                              </div>
+                              <div className="create-message">
+                                <form
+                                  className="form"
+                                  name={chat.user.id}
+                                  onSubmit={handleSubmit}
+                                >                
+                                  <textarea
+                                    className="input"
+                                    value={formData.message}
+                                    placeholder="Message..."
+                                    name="message"
+                                    onChange={handleChange}
+                                  />
+                                  <button type="submit">
+                                    <img src={message} alt="Send message"/> 
+                                  </button>
+                                </form>
+                              </div>
+                            </Tab.Pane>
+                          </Tab.Content>
+                        </Col>
+                      </Row>
+                    )}
+                  </Tab.Container>
+                }
               </div>
             </>
         }

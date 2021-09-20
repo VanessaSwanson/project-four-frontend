@@ -75,9 +75,14 @@ function UserShow() {
                       <a href={`/auth/${user.id}/edit/`}>Edit Profile</a>
                     </button>
                     :
-                    <button className="follow-button" onClick={handleFollow}>
-                      {isFollowing ? 'Unfollow' : 'Follow'}
-                    </button>
+                    <>
+                      <button className="follow-button" onClick={handleFollow}>
+                        {isFollowing ? 'Unfollow' : 'Follow'}
+                      </button>
+                      <button className="message-button">
+                        <a href={`/auth/${user.id}/message/`}>Message</a>
+                      </button>
+                    </>
                 }
               </div>
               <div className="user-nums">

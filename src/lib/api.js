@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
+const baseUrl = '/api'
+
 // AUTH
 export function getHeaders() {
   return {
@@ -10,63 +12,63 @@ export function getHeaders() {
 
 // POSTS
 export function getAllPosts() {
-  return axios.get('/api/posts')
+  return axios.get(`${baseUrl}/posts/`)
 }
 
 export function getSinglePost(id){
-  return axios.get(`/api/posts/${id}`)
+  return axios.get(`${baseUrl}/posts/${id}/`)
 }
 
 export function createPost(formData) {
-  return axios.post('/api/posts/create/', formData, getHeaders())
+  return axios.post(`${baseUrl}/posts/create/`, formData, getHeaders())
 }
 
 export function deletePost(id) {
-  return axios.delete(`/api/posts/${id}/`, getHeaders())
+  return axios.delete(`${baseUrl}/posts/${id}/`, getHeaders())
 }
 
 export function likePost(id) {
-  return axios.post(`/api/posts/${id}/like/`, null, getHeaders())
+  return axios.post(`${baseUrl}/posts/${id}/like/`, null, getHeaders())
 }
 
 export function commentPost(id, formData) {
-  return axios.post(`/api/posts/${id}/comment/`, formData, getHeaders())
+  return axios.post(`${baseUrl}/posts/${id}/comment/`, formData, getHeaders())
 }
 
 export function deleteCommentPost(id) {
-  axios.delete(`/api/posts/${id}/comment/${id}`, getHeaders())
+  axios.delete(`${baseUrl}/posts/${id}/comment/${id}/`, getHeaders())
 }
 
 
 // USERS
 export function registerUser(formData) {
-  return axios.post('/api/auth/register/', formData)
+  return axios.post(`${baseUrl}/auth/register/`, formData)
 }
 
 export function loginUser(formData) {
-  return axios.post('/api/auth/login/', formData)
+  return axios.post(`${baseUrl}/auth/login/`, formData)
 }
 
 export function getAllUsers() {
-  return axios.post('/api/auth')
+  return axios.post(`${baseUrl}/auth/`)
 }
 
 export function getSingleUser(id) {
-  return axios.get(`/api/auth/${id}`)
+  return axios.get(`${baseUrl}/auth/${id}/`)
 }
 
 export function followUser(id) {
-  return axios.post(`/api/auth/${id}/follow/`, null, getHeaders())
+  return axios.post(`${baseUrl}/auth/${id}/follow/`, null, getHeaders())
 }
 
 export function getProfile() {
-  return axios.get('/api/auth/profile', getHeaders())
+  return axios.get(`${baseUrl}/auth/profile/`, getHeaders())
 }
 
 export function editProfile(id, formData) {
-  return axios.put(`/api/auth/${id}/edit/`, formData, getHeaders())
+  return axios.put(`${baseUrl}/auth/${id}/edit/`, formData, getHeaders())
 }
 
 export function sendMessage(id, formData) {
-  return axios.post(`/api/auth/${id}/message/`, formData, getHeaders())
+  return axios.post(`${baseUrl}/auth/${id}/message/`, formData, getHeaders())
 }
