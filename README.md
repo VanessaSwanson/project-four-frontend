@@ -442,7 +442,8 @@ On the right hand side of the page, there is a "Suggestions for you" section, wh
 
 ```
 
- // These lines filter users for your suggestions. It suggests accounts that people you follow are following.
+ // These lines filter users for your suggestions. It suggests accounts that people you follow 
+ are following.
 
  const  key = 'username'
 
@@ -465,8 +466,11 @@ On the right hand side of the page, there is a "Suggestions for you" section, wh
  const  arrayUniqueByKey = [...new  Map(suggestions.map(item  =>
 
    [item[key], item])).values()]
+   
+   ```
 
 Further down in the JSX, I then clarify that only accounts that the logged in user doesn't already follow should be shown:
+```
 
 {arrayUniqueByKey.length > 0 &&
 
@@ -683,3 +687,4 @@ Future Content <a name="futurecontent"></a>
 -   Improved messaging feature.
 
 -   I'm not sure how one would create the Instagram stories feature exactly, but that would be a really interesting thing to look into for my own learning and development.
+
