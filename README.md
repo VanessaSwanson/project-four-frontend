@@ -53,7 +53,7 @@ General Assembly Project 4: Kollektiv
 Overview <a name="overview"></a>
 ========
 
-This was my final project as part of the General Assembly immersive Software Engineering course, in which I built an Instagram clone using Django and React.
+This was my final project as part of the General Assembly Software Engineering Immersive course, in which I built an Instagram clone using Django and React.
 
 🔗 [Deployed site](https://kollektiv-sei.netlify.app)
 
